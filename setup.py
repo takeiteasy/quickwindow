@@ -1,28 +1,46 @@
-from distutils.core import setup
-from pyglfw import __version__
+# https://github.com/takeiteasy/quickwindow
+#
+# Copyright 2025 George Watson
+# 
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+# 
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+# 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+ 
+from setuptools import setup, find_packages
 
-setup(name='pyglfw',
-      version=__version__,
-      description='Python bindings for the GLFW library',
-      url='https://bitbucket.org/pyglfw/pyglfw',
-      author='Roman Valov',
-      author_email='roman.valov@gmail.com',
-      license='zlib',
-      packages=['pyglfw', 'pyglfw.libapi', 'pyglfw.pyglfw'],
-      long_description=open('README.rst').read(),
-      classifiers=(
-          'Development Status :: 4 - Beta',
-          'Intended Audience :: Developers',
-          'License :: OSI Approved :: zlib/libpng License',
-          'Operating System :: MacOS :: MacOS X',
-          'Operating System :: Microsoft :: Windows',
-          'Operating System :: POSIX',
-          'Programming Language :: Python',
-          'Programming Language :: Python :: 2.7',
-          'Programming Language :: Python :: 3',
-          'Programming Language :: Python :: 3.3',
-          'Topic :: Multimedia',
-          'Topic :: Games/Entertainment',
-          'Topic :: Software Development :: Libraries',
-          )
-      )
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
+
+with open("requirements.txt", "r", encoding="utf-8") as fh:
+    install_requires = fh.read().splitlines()
+
+setup(
+    name="quickwindow",
+    version="0.0.1",
+    author="George Watson",
+    author_email="gigolo@hotmail.co.uk",
+    description="Python bindings for the GLFW library (pyglfw fork)",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/takeiteasy/quickwindow",
+    packages=find_packages(include=['quickwindow', 'quickwindow.*']),
+    install_requires=install_requires,
+    setup_requires=install_requires,
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent"])

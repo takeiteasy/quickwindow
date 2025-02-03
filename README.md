@@ -1,5 +1,42 @@
+# quickwindow
+
+Python bindings for the GLFW library, fork of [pyglfw](https://github.com/pyglfw/pyglfw).
+
+> [!NOTE]
+> `pip install quickwindow==0.0.1`
+
+```python
+from quickwindow import quick_window, Keys, KeyEvent
+
+with quick_window() as wnd:
+    for dt in wnd.loop():
+        for e in wnd.events():
+            if isinstance(e, KeyEvent):
+                if e.key == Keys.ESCAPE:
+                    wnd.quit()
+            print(e)
+        print(f"Δtime: {dt})")
+```
+
+> [!IMPORTANT]
+> `libglfw3` dynamic library must be in path
+
+```python
+_lib = None
+match platform.system():
+    case "Windows":
+        _lib = cdll.glfw3
+    case "Darwin":
+        _lib = cdll.LoadLibrary('libglfw.3.dylib')
+    case _:
+        _lib = cdll.LoadLibrary('libglfw.so.3')
+```
+
+## LICENSE
+```
 MIT License
 
+Copyright (C) 2013 Roman Valov
 Copyright (c) 2025 George Watson
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,21 +56,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-Copyright (C) 2013 Roman Valov
-
-  This software is provided 'as-is', without any express or implied
-  warranty.  In no event will the authors be held liable for any damages
-  arising from the use of this software.
-
-  Permission is granted to anyone to use this software for any purpose,
-  including commercial applications, and to alter it and redistribute it
-  freely, subject to the following restrictions:
-
-  1. The origin of this software must not be misrepresented; you must not
-     claim that you wrote the original software. If you use this software
-     in a product, an acknowledgment in the product documentation would be
-     appreciated but is not required.
-  2. Altered source versions must be plainly marked as such, and must not be
-     misrepresented as being the original software.
-  3. This notice may not be removed or altered from any source distribution.
+```

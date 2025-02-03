@@ -1,0 +1,15 @@
+.DS_Store
+**/.DS_Store
+*.pyc
+.idea/
+.venv/
+__pycachce__/
+**/__pycachce__/
+*.iml
+build/
+*.txt
+env/
+dist/
+*.egg-info/
+**/*.egg-info/
+.eggs/

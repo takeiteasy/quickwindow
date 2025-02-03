@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=72.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quickwindow"
+version = "0.0.1"
+authors = [
+  { name="George Watson", email="gigolo@hotmail.co.uk" },
+]
+description = "Python bindings for the GLFW library (pyglfw fork)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/takeiteasy/quickwindow"
+Issues = "https://github.com/takeiteasy/quickwindow/issues"
