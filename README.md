@@ -6,14 +6,11 @@ Python bindings for the GLFW library, fork of [pyglfw](https://github.com/pyglfw
 > `pip install quickwindow==0.0.1`
 
 ```python
-from quickwindow import quick_window, Keys, KeyEvent
+import quickwindow as qw
 
-with quick_window() as wnd:
+with qw.quick_window() as wnd:
     for dt in wnd.loop():
         for e in wnd.events():
-            if isinstance(e, KeyEvent):
-                if e.key == Keys.ESCAPE:
-                    wnd.quit()
             print(e)
         print(f"Δtime: {dt})")
 ```

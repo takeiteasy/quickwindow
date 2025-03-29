@@ -21,9 +21,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from .window import *
+from .window import init_glfw, ManagedWindow, FrameLimiter, Window, Monitor, Keys
+from . import glfw as api
 from typing import Optional, Union, Tuple, Dict
 from contextlib import contextmanager
+
+__all__ = ["quick_window", "handle", "should_close", "width", "height", "size", "loop", "events"]
 
 class QuickWindow(ManagedWindow, FrameLimiter):
     def __init__(self, width: int, height: int, title: str, limit: Optional[Union[int, float]] = None, **kwargs):
@@ -38,14 +41,47 @@ class QuickWindow(ManagedWindow, FrameLimiter):
 
 __window__ = None
 
-def get_quick_window():
+def _window_attrib(func):
+    def wrapper(*args, **kwargs):
+        if __window__ is None:
+            raise RuntimeError("No window created")
+        return func()
+    return wrapper
+
+@_window_attrib
+def handle():
     return __window__
+
+@_window_attrib
+def should_close():
+    return __window__.should_close
+
+@_window_attrib
+def width():
+    return __window__.width
+
+@_window_attrib
+def height():
+    return __window__.height
+
+@_window_attrib
+def size():
+    return __window__.size
+
+@_window_attrib
+def loop():
+    return __window__.loop()
+
+@_window_attrib
+def events():
+    return __window__.events()
 
 @contextmanager
 def quick_window(width: Optional[int] = 640,
                  height: Optional[int] = 480,
                  title: Optional[str] = "quickwindow",
                  frame_limit: Optional[Union[int, str]] = None,
+                 quit_key: Optional[Keys] = Keys.ESCAPE,
                  versions: Optional[Tuple[int, int, bool]] = None,
                  monitor: Optional[Monitor] = None,
                  shared: Optional[Window] = None,
@@ -72,5 +108,5 @@ def quick_window(width: Optional[int] = 640,
             print("%s.%s %s: %s" % (vermaj, vermin, iscore_str, e))
     else:
         raise SystemExit("Proper OpenGL 3.x context not found")
-    __window__ = QuickWindow(width, height, title, frame_limit, monitor=monitor, shared=shared, hints=hints, callbacks=None)
+    __window__ = QuickWindow(width, height, title, frame_limit, monitor=monitor, shared=shared, hints=hints, quit_key=quit_key)
     yield __window__

@@ -28,6 +28,8 @@ from typing import Optional, Union, Dict
 import atexit
 from queue import Queue
 
+__all__ = ["Hints", "Keys", "Mice", "Joystick", "Monitor", "VideoMode", "Window", "ManagedWindow", "FrameLimiter"]
+
 if bytes is str:
     _unichr = unichr
     _unistr = unicode
@@ -359,8 +361,7 @@ class Window(WindowType):
 
         mon_handle = monitor and monitor.handle or None
         shr_handle = shared and shared.handle or None
-        win_handle = api.glfwCreateWindow(width, height, _utf(title),
-                                      mon_handle, shr_handle)
+        win_handle = api.glfwCreateWindow(width, height, _utf(title), mon_handle, shr_handle)
 
         self.handle = win_handle.get_void_p()
         self.__class__._instance_[self.handle.value] = self
@@ -450,6 +451,14 @@ class Window(WindowType):
     @size.setter
     def size(self, x_y):
         api.glfwSetWindowSize(self.handle, *x_y)
+
+    @property
+    def width(self):
+        return self.size[0]
+
+    @property
+    def height(self):
+        return self.size[1]
 
     def iconify(self):
         api.glfwIconifyWindow(self.handle)
@@ -739,7 +748,7 @@ class Window(WindowType):
         self.should_close = True
 
 class ManagedWindow(Window):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, quit_key: Optional[Keys] = None, **kwargs):
         if "callbacks" in kwargs.keys():
             del kwargs["callbacks"]
         super().__init__(*args, **kwargs)
@@ -757,6 +766,7 @@ class ManagedWindow(Window):
         self.set_window_iconify_callback(ManagedWindow.window_iconify_callback)
         self.set_framebuffer_size_callback(ManagedWindow.framebuffer_size_callback)
         self._events = Queue()
+        self._quit_key = quit_key
 
     def events(self):
         while not self._events.empty():
@@ -770,6 +780,8 @@ class ManagedWindow(Window):
         self._events.put(event)
 
     def key_callback(self, key, scancode, action, mods):
+        if self._quit_key is not None and key == self._quit_key and action == api.GLFW_PRESS:
+            self.should_close = True
         self.__add_event(KeyEvent(key=key,
                                   scancode=scancode,
                                   action=action,

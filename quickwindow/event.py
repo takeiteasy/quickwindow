@@ -23,6 +23,8 @@
 
 from dataclasses import dataclass
 
+__all__ = ["EventType", "KeyEvent", "CharEvent", "ScrollEvent", "MouseButtonEvent", "CursorEnterEvent", "CursorPosEvent", "WindowSizeEvent", "WindowPosEvent", "WindowCloseEvent", "WindowRefreshEvent", "WindowFocusEvent", "WindowIconifyEvent", "FrameBufferSizeEvent"]
+
 class EventType:
     pass
 

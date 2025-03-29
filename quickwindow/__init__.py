@@ -21,6 +21,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from .window import Hints, Keys, Mice, Joystick, Monitor, VideoMode, Window, ManagedWindow, FrameLimiter
+from .window import *
 from .event import *
-from .quick import quick_window, get_quick_window, QuickWindow
+from .quick import * 

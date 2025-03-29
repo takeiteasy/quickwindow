@@ -1,10 +1,7 @@
-from quickwindow import quick_window, Keys, KeyEvent
+import quickwindow as qw
 
-with quick_window() as wnd:
-    for dt in wnd.loop():
-        for e in wnd.events():
-            if isinstance(e, KeyEvent):
-                if e.key == Keys.ESCAPE:
-                    wnd.quit()
+with qw.quick_window() as wnd:
+    for dt in qw.loop():
+        for e in qw.events():
             print(e)
         print(f"Δtime: {dt})")

@@ -25,12 +25,9 @@ from setuptools import setup, find_packages
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-with open("requirements.txt", "r", encoding="utf-8") as fh:
-    install_requires = fh.read().splitlines()
-
 setup(
     name="quickwindow",
-    version="0.0.1",
+    version="0.0.2",
     author="George Watson",
     author_email="gigolo@hotmail.co.uk",
     description="Python bindings for the GLFW library (pyglfw fork)",
@@ -38,8 +35,6 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/takeiteasy/quickwindow",
     packages=find_packages(include=['quickwindow', 'quickwindow.*']),
-    install_requires=install_requires,
-    setup_requires=install_requires,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
