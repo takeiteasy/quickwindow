@@ -27,7 +27,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="quickwindow",
-    version="0.0.2",
+    version="0.1.0",
     author="George Watson",
     author_email="gigolo@hotmail.co.uk",
     description="Python bindings for the GLFW library (pyglfw fork)",

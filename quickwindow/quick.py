@@ -36,7 +36,7 @@ class QuickWindow(ManagedWindow, FrameLimiter):
     def loop(self):
         while not self.should_close:
             self.poll_events()
-            yield self.limit()
+            yield self.limit(), self.all_events()
             self.swap_buffers()
 
 __window__ = None
@@ -70,7 +70,8 @@ def size():
 
 @_window_attrib
 def loop():
-    return __window__.loop()
+    for dt, events in __window__.loop():
+        yield dt, events
 
 @_window_attrib
 def events():

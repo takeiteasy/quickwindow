@@ -3,16 +3,14 @@
 Python bindings for the GLFW library, fork of [pyglfw](https://github.com/pyglfw/pyglfw).
 
 > [!NOTE]
-> `pip install quickwindow==0.0.1`
+> `pip install quickwindow==0.1.0`
 
 ```python
-import quickwindow as qw
+from quickwindow import quick_window, loop
 
-with qw.quick_window() as wnd:
-    for dt in wnd.loop():
-        for e in wnd.events():
-            print(e)
-        print(f"Δtime: {dt})")
+with quick_window():
+    for dt, events in loop():
+        print(f"Δtime: {dt}\nevents: {events}")
 ```
 
 > [!IMPORTANT]

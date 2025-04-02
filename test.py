@@ -1,7 +1,5 @@
-import quickwindow as qw
+from quickwindow import quick_window, loop
 
-with qw.quick_window() as wnd:
-    for dt in qw.loop():
-        for e in qw.events():
-            print(e)
-        print(f"Δtime: {dt})")
+with quick_window():
+    for dt, events in loop():
+        print(f"Δtime: {dt}\nevents: {events}")

@@ -24,7 +24,7 @@
 from . import glfw as api
 from .event import *
 from threading import local
-from typing import Optional, Union, Dict
+from typing import Optional, Union, Dict, override
 import atexit
 from queue import Queue
 
@@ -772,8 +772,13 @@ class ManagedWindow(Window):
         while not self._events.empty():
             event = self._events.get()
             yield event
+    
+    def all_events(self):
+        return list(self._events.queue)
 
-    def _clear_events(self):
+    @override
+    def swap_buffers(self):
+        api.glfwSwapBuffers(self.handle)
         self._events = Queue()
 
     def __add_event(self, event: EventType):
@@ -860,4 +865,3 @@ class FrameLimiter:
             while api.glfwGetTime() < self.frame_current_time + self.frame_step:
                 pass
         return dt
-
